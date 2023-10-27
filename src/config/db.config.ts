@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { User } from "../entities/user.entity";
+import { Auth, User } from "../entities";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   password: "postgres",
   database: "clinica_db",
   synchronize: true,
-  entities: [User],
+  entities: [Auth, User],
 })
 
 const connection = () =>{
