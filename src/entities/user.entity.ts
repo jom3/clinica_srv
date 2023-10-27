@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Auth } from "./auth.entity";
 
 export type UserGender = 'Male' | 'Female'
 
@@ -33,4 +34,7 @@ export class User{
 
   @Column({type:'numeric', default:1})
   status!:number;
+
+  @OneToOne(()=>Auth, (auth)=>auth.user)
+  auth!:Auth;
 }

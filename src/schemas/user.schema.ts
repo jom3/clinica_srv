@@ -1,4 +1,4 @@
-import { date, z } from "zod";
+import { z } from "zod";
 import { AppDataSource } from "../config/db.config";
 import { User } from "../entities/user.entity";
 const userRepository = AppDataSource.getRepository(User);

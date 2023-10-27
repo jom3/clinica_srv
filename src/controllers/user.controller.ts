@@ -1,10 +1,14 @@
 import { Request, Response } from "express";
-import { User } from "../entities/user.entity";
 import { AppDataSource } from "../config/db.config";
 import { ZodError } from "zod";
 import { userCreateSchema, userUpdateSchema } from "../schemas/user.schema";
+import { Auth, User } from "../entities";
+import { PasswordGenerator } from "../helpers/password-generator";
+import { EncryptPassword } from "../helpers/encrypt-password";
+import { SendEmail } from "../helpers/send-email";
 
 const userRepository = AppDataSource.getRepository(User);
+const authRepository = AppDataSource.getRepository(Auth);
 
 const getUsers = async (req: Request, res: Response) => {
   const users = await userRepository.find();
@@ -40,7 +44,15 @@ const postUser = async (req: Request, res: Response) => {
           email: email.toLowerCase(),
           ...rest
         });
-        await userRepository.save(user);
+        await userRepository.save(user).then(async(user)=>{
+          const generatePassword = PasswordGenerator()
+          SendEmail(`Your new password is: ${generatePassword}`,user)
+          await authRepository.save(authRepository.create({
+            user_id:user.user_id,
+            username:user.email.toLowerCase(),
+            password: EncryptPassword(generatePassword)
+          }))
+        });
         res.status(201).send('User created');
       }
     )
