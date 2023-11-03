@@ -1,9 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Staff } from "./staff.entity";
 
 @Entity()
 export class Speciality{
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   speciality_id!:string;
 
   @Column({type:'text', nullable:false})
@@ -14,4 +15,7 @@ export class Speciality{
 
   @Column({type:'numeric', default:1})
   status!:number;
+
+  @OneToOne(()=>Staff,(staff)=>staff.speciality)
+  staff!:Staff;
 }

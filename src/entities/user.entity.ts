@@ -1,5 +1,6 @@
 import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Auth } from "./auth.entity";
+import { Staff } from "./staff.entity";
 
 export type UserGender = 'Male' | 'Female'
 
@@ -37,4 +38,7 @@ export class User{
 
   @OneToOne(()=>Auth, (auth)=>auth.user)
   auth!:Auth;
+
+  @OneToOne(()=>Staff,(staff)=>staff.user)
+  staff!:Staff;
 }
