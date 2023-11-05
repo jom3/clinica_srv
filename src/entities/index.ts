@@ -1,3 +1,4 @@
+export { Illness } from "./illness.entity";
 export { Staff } from "./staff.entity";
 export { Speciality } from "./speciality.entity";
 export { Department } from "./department.entity";
