@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Staff } from './staff.entity';
 import { User } from "./user.entity";
+import { Room } from "./room.entity";
 
 @Entity()
 export class Attention{
@@ -22,6 +23,12 @@ export class Attention{
   })
   @JoinColumn({name:'staff_id'})
   staff!:string;
+
+  @ManyToOne(()=>Room,{
+    eager:true, cascade:true
+  })
+  @JoinColumn({name:'room_id'})
+  room!:string;
   
   @ManyToOne(()=>User,(user)=>user.attention,{
     eager:true,

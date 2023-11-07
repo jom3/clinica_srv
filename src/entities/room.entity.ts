@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Staff } from "./staff.entity";
+import { Attention } from './attention.entity';
 
 @Entity()
 export class Room{
@@ -15,4 +16,7 @@ export class Room{
 
   @Column({type:'numeric', default:1})
   status!:number;
+
+  @OneToMany(()=>Attention,(attention)=>attention.room)
+  attention!:Attention;
 }

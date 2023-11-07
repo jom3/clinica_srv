@@ -28,11 +28,13 @@ const postAttention = async (req: Request, res: Response) => {
     .then(
       async ({
         staff_id,
-        user_id
+        user_id,
+        room_id
       }) => {
         const attention = attentionRespository.create({
           staff:staff_id,
           user:user_id,
+          room:room_id,
           create_at:new Date()
         })
         await attentionRespository.save(attention);
@@ -58,11 +60,13 @@ const patchAttention = async (req: Request, res: Response) => {
     .then(
       async ({
         staff_id,
-        user_id
+        user_id,
+        room_id
       }) => {
         const attention = attentionRespository.create({
           staff:staff_id,
-          user:user_id
+          user:user_id,
+          room:room_id
         })
         await attentionRespository.save(attention);
         res.status(201).json('Attention updated');
