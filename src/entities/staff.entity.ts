@@ -1,7 +1,8 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, ManyToMany, OneToMany } from 'typeorm';
 import { User } from './user.entity';
 import { Department } from './department.entity';
 import { Speciality } from './speciality.entity';
+import { Attention } from './attention.entity';
 
 @Entity()
 export class Staff{
@@ -38,6 +39,9 @@ export class Staff{
   })
   @JoinColumn({name:'speciality_id'})
   speciality!:string;
+
+  @OneToMany(()=>Attention,(attention)=>attention.staff)
+  attention!:Attention;
 
   @BeforeInsert()
   checkInsert(){

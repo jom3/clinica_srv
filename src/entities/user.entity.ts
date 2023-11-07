@@ -1,6 +1,7 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Auth } from "./auth.entity";
 import { Staff } from "./staff.entity";
+import { Attention } from "./attention.entity";
 
 export type UserGender = 'Male' | 'Female'
 
@@ -41,4 +42,8 @@ export class User{
 
   @OneToOne(()=>Staff,(staff)=>staff.user)
   staff!:Staff;
+
+  @OneToMany(()=>Attention,(attention)=>attention.user)
+  attention!:Attention;
+
 }
