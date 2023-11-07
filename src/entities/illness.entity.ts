@@ -6,7 +6,7 @@ export class Illness{
   @PrimaryGeneratedColumn('uuid')
   illness_id!:string;
 
-  @Column({type:'text', nullable:false})
+  @Column({type:'text', nullable:false, unique:true})
   name!:string;
 
   @Column({type:'text', nullable:true})

@@ -19,7 +19,7 @@ const getOneIllness = async (req: Request, res: Response) => {
       msg: `Illness with that id doesn't exist`,
     });
   }
-  res.status(200).send(illness);
+  res.status(200).json(illness);
 };
 
 const postIllness = async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ const postIllness = async (req: Request, res: Response) => {
         desc: desc?.toLowerCase(),
       });
       await illnessRespository.save(illness);
-      res.status(201).send("Illness created");
+      res.status(201).json("Illness created");
     })
     .catch((error) => {
       if (error instanceof ZodError) {
@@ -54,7 +54,7 @@ const patchIllness = async (req: Request, res: Response) => {
           desc: desc?.toLowerCase(),
         }
       );
-      res.status(201).send("Illness updated");
+      res.status(201).json("Illness updated");
     })
     .catch((error) => {
       if (error instanceof ZodError) {
@@ -74,7 +74,7 @@ const removeIllness = async (req: Request, res: Response) => {
     });
   }
   await illnessRespository.update({ illness_id: id }, { status: 0 });
-  res.status(200).send("Illness is removed");
+  res.status(200).json("Illness is removed");
 };
 
 const restoreIllness = async (req: Request, res: Response) => {
@@ -86,7 +86,7 @@ const restoreIllness = async (req: Request, res: Response) => {
     });
   }
   await illnessRespository.update({ illness_id: id }, { status: 1 });
-  res.status(200).send("Illness is restore");
+  res.status(200).json("Illness is restore");
 };
 
 export { getIllness, getOneIllness, postIllness, patchIllness, removeIllness, restoreIllness }
