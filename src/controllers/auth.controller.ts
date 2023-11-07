@@ -25,7 +25,7 @@ const login = async(req:Request, res:Response) => {
     }
     const token = GenerateJWT(user!.user_id)
 
-    res.status(200).send({token})
+    res.status(200).json(token)
 
   } catch (error) {
     if (error instanceof ZodError) {
@@ -46,7 +46,7 @@ const changePassword = async(req:Request, res:Response) => {
       res.status(404).send({msg:`User with username: ${username} doesn't exist`})
     }
     await authRepository.update({username:username},{password:EncryptPassword(password)}).then(async()=>{
-      res.status(200).send('Password changed')
+      res.status(200).json('Password changed')
     })
   } catch (error) {
     if (error instanceof ZodError) {

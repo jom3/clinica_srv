@@ -35,7 +35,7 @@ export const userCreateSchema = z.object({
     .min(10, { message: "address need almost 10 letters" }),
   telephone: z
     .string({ required_error: "telephone is required" })
-    .min(8, { message: "address need almost 10 digits" }),
+    .min(8, { message: "telephone need almost 10 digits" }),
 });
 
 export const userUpdateSchema = z.object({

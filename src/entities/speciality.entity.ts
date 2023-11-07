@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Staff } from "./staff.entity";
 
 @Entity()
@@ -16,6 +16,6 @@ export class Speciality{
   @Column({type:'numeric', default:1})
   status!:number;
 
-  @OneToOne(()=>Staff,(staff)=>staff.speciality)
+  @OneToMany(()=>Staff,(staff)=>staff.speciality)
   staff!:Staff;
 }
