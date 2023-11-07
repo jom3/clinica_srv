@@ -2,6 +2,7 @@ import { DataSource } from "typeorm";
 import { Auth, Department, Illness, Speciality, User } from "../entities";
 import { Staff } from "../entities/staff.entity";
 import { Attention } from "../entities/attention.entity";
+import { Room } from "../entities/room.entity";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
@@ -11,15 +12,24 @@ export const AppDataSource = new DataSource({
   password: "postgres",
   database: "clinica_db",
   synchronize: true,
-  entities: [Auth, User, Department, Speciality, Staff, Illness, Attention],
-})
+  entities: [
+    Auth,
+    User,
+    Department,
+    Speciality,
+    Staff,
+    Illness,
+    Attention,
+    Room,
+  ],
+});
 
-const connection = () =>{
+const connection = () => {
   AppDataSource.initialize()
-      .then(() => {
-        console.log('conected')
-      })
-      .catch((error) => console.log(error))
-}
+    .then(() => {
+      console.log("conected");
+    })
+    .catch((error) => console.log(error));
+};
 
-export {connection}
+export { connection };
