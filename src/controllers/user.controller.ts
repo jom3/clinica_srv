@@ -23,7 +23,7 @@ const getUser =async (req: Request, res: Response) => {
       msg:`User with that id doesn't exist`
     })
   }
-  res.status(200).send(user)
+  res.status(200).json(user)
 }
 
 const postUser = async (req: Request, res: Response) => {
@@ -53,10 +53,11 @@ const postUser = async (req: Request, res: Response) => {
             password: EncryptPassword(generatePassword)
           }))
         });
-        res.status(201).send('User created');
+        res.status(201).json('User created');
       }
     )
     .catch((error) => {
+      console.log(error)
       if (error instanceof ZodError) {
         res.status(400).send(
           error.issues.map(
@@ -86,7 +87,7 @@ const patchUser = async (req: Request, res: Response) => {
           ...rest
       }).where("user_id=:id",{id})
       .execute()
-      res.status(201).send('User updated');
+      res.status(201).json('User updated');
     }
   )
   .catch((error) => {
@@ -109,7 +110,7 @@ const removeUser = async (req: Request, res: Response) => {
     })
   }
   await userRepository.update({user_id:id},{status:0})
-  res.status(200).send('User is removed')
+  res.status(200).json('User is removed')
 };
 
 const restoreUser = async (req: Request, res: Response) => {
@@ -121,7 +122,7 @@ const restoreUser = async (req: Request, res: Response) => {
     })
   }
   await userRepository.update({user_id:id},{status:1})
-  res.status(200).send('User is restore')
+  res.status(200).json('User is restore')
 };
 
 export { getUsers, getUser, postUser, patchUser, removeUser, restoreUser };

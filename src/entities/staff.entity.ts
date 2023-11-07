@@ -1,4 +1,4 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
 import { Department } from './department.entity';
 import { Speciality } from './speciality.entity';
@@ -27,13 +27,13 @@ export class Staff{
   @JoinColumn({name:'user_id'})
   user!:string;
 
-  @OneToOne(()=>Department,{
+  @ManyToOne(()=>Department,{
     eager:true, cascade:true,
   })
   @JoinColumn({name:'department_id'})
   department!:string;
 
-  @OneToOne(()=>Speciality,{
+  @ManyToOne(()=>Speciality,{
     eager:true, cascade:true
   })
   @JoinColumn({name:'speciality_id'})

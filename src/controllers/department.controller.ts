@@ -19,7 +19,7 @@ const getDepartment =async (req: Request, res: Response) => {
       msg:`Department with that id doesn't exist`
     })
   }
-  res.status(200).send(department)
+  res.status(200).json(department)
 }
 
 const postDepartment = async (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ const postDepartment = async (req: Request, res: Response) => {
           desc:desc?.toLowerCase()
         })
         await departmentRespository.save(department);
-        res.status(201).send('Department created');
+        res.status(201).json('Department created');
       }
     )
     .catch((error) => {
@@ -63,7 +63,7 @@ const patchDepartment = async (req: Request, res: Response) => {
         name: name.toLowerCase(),
         desc:desc?.toLowerCase()
       })
-      res.status(201).send('Department updated');
+      res.status(201).json('Department updated');
     }
   )
   .catch((error) => {
@@ -86,7 +86,7 @@ const removeDepartment = async (req: Request, res: Response) => {
     })
   }
   await departmentRespository.update({department_id:id},{status:0})
-  res.status(200).send('Department is removed')
+  res.status(200).json('Department is removed')
 };
 
 const restoreDepartment = async (req: Request, res: Response) => {
@@ -98,7 +98,7 @@ const restoreDepartment = async (req: Request, res: Response) => {
     })
   }
   await departmentRespository.update({department_id:id},{status:1})
-  res.status(200).send('Department is restore')
+  res.status(200).json('Department is restore')
 };
 
 export { getDeparments, getDepartment, postDepartment, patchDepartment, removeDepartment, restoreDepartment }

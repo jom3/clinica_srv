@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../config/db.config";
 import { ZodError } from "zod";
 import { Staff } from "../entities";
-import { staffCreateSchema } from "../schemas/staff.schema";
+import { staffCreateSchema, staffUpdateSchema } from "../schemas/staff.schema";
 
 const staffRespository = AppDataSource.getRepository(Staff);
 
@@ -19,7 +19,7 @@ const getStaff = async (req: Request, res: Response) => {
       msg: `Staff with that id doesn't exist`,
     });
   }
-  res.status(200).send(staff);
+  res.status(200).json(staff);
 };
 
 const postStaff = async (req: Request, res: Response) => {
@@ -32,7 +32,7 @@ const postStaff = async (req: Request, res: Response) => {
         department: department_id,
       });
       await staffRespository.save(staff);
-      res.status(201).send("Staff created");
+      res.status(201).json("Staff created");
     })
     .catch((error) => {
       console.log(error);
@@ -46,7 +46,7 @@ const postStaff = async (req: Request, res: Response) => {
 
 const patchStaff = async (req: Request, res: Response) => {
   const { id } = req.params;
-  staffCreateSchema
+  staffUpdateSchema
     .parseAsync(req.body)
     .then(async ({ user_id, speciality_id, department_id }) => {
       console.log(id, user_id, speciality_id, department_id)
@@ -59,7 +59,7 @@ const patchStaff = async (req: Request, res: Response) => {
           updated_at: new Date()
         }
       );
-      res.status(201).send("Staff updated");
+      res.status(201).json("Staff updated");
     })
     .catch((error) => {
       if (error instanceof ZodError) {
@@ -82,7 +82,7 @@ const removeStaff = async (req: Request, res: Response) => {
     { staff_id: id },
     { status: 0, finished_at: new Date() }
   );
-  res.status(200).send("Staff is removed");
+  res.status(200).json("Staff is removed");
 };
 
 const restoreStaff = async (req: Request, res: Response) => {
@@ -97,7 +97,7 @@ const restoreStaff = async (req: Request, res: Response) => {
     { staff_id: id },
     { status: 1, finished_at: null!, started_at: new Date() }
   );
-  res.status(200).send("Staff is restore");
+  res.status(200).json("Staff is restore");
 };
 
 export { getStaffs, getStaff, postStaff, patchStaff, removeStaff, restoreStaff };

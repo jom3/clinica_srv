@@ -19,7 +19,7 @@ const getSpeciality =async (req: Request, res: Response) => {
       msg:`Speciality with that id doesn't exist`
     })
   }
-  res.status(200).send(speciality)
+  res.status(200).json(speciality)
 }
 
 const postSpeciality = async (req: Request, res: Response) => {
@@ -35,7 +35,7 @@ const postSpeciality = async (req: Request, res: Response) => {
           desc:desc?.toLowerCase()
         })
         await specialityRespository.save(speciality);
-        res.status(201).send('Speciality created');
+        res.status(201).json('Speciality created');
       }
     )
     .catch((error) => {
@@ -63,7 +63,7 @@ const patchSpeciality = async (req: Request, res: Response) => {
         name: name.toLowerCase(),
         desc:desc?.toLowerCase()
       })
-      res.status(201).send('Speciality updated');
+      res.status(201).json('Speciality updated');
     }
   )
   .catch((error) => {
@@ -86,7 +86,7 @@ const removeSpeciality = async (req: Request, res: Response) => {
     })
   }
   await specialityRespository.update({speciality_id:id},{status:0})
-  res.status(200).send('Speciality is removed')
+  res.status(200).json('Speciality is removed')
 };
 
 const restoreSpeciality = async (req: Request, res: Response) => {
@@ -98,7 +98,7 @@ const restoreSpeciality = async (req: Request, res: Response) => {
     })
   }
   await specialityRespository.update({speciality_id:id},{status:1})
-  res.status(200).send('Speciality is restore')
+  res.status(200).json('Speciality is restore')
 };
 
 export { getSpecialities, getSpeciality, postSpeciality, patchSpeciality, removeSpeciality, restoreSpeciality}
