@@ -5,6 +5,7 @@ import { departmentRoutes } from "./department.routes";
 import { specialityRoutes } from "./speciality.routes";
 import { staffRoutes } from "./staff.routes";
 import { illnessRoutes } from "./illness.routes";
+import { attentionRoutes } from "./attention.routes";
 
 const appRouter = Router()
 
@@ -14,5 +15,6 @@ appRouter.use('/department', departmentRoutes)
 appRouter.use('/illness', illnessRoutes)
 appRouter.use('/speciality', specialityRoutes)
 appRouter.use('/staff', staffRoutes)
+appRouter.use('/attention', attentionRoutes)
 
 export { appRouter }
